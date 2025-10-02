@@ -23,7 +23,10 @@ class CalculateTool < FastMcp::Tool
   end
 end
 
-server = FastMcp::Server.new(name: 'simple-fast-mcp', version: '1.0.0')
+server = FastMcp::Server.new(
+  name: 'simple-fast-mcp',
+  version: '1.0.0'
+)
 
 # Register tools
 server.register_tool(GetCurrentTimeTool)
