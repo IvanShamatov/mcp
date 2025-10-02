@@ -1,154 +1,162 @@
 # MCP Servers Collection
 
-A collection of Model Context Protocol (MCP) servers written in Ruby for various system operations.
+Коллекция серверов Model Context Protocol (MCP), написанных на Ruby для различных системных операций.
 
-## Servers
+## Серверы
 
 ### 1. Simple MCP Server (`simple_mcp_server.rb`)
-Basic MCP server with mathematical calculations and time functions.
+Базовый MCP сервер с математическими вычислениями и функциями времени.
 
-**Tools:**
-- `get_current_time` - Returns current time
-- `calculate` - Performs mathematical calculations
+**Установка:**
+```bash
+gem install json
+```
 
-### 2. Swagger MCP Wrapper (`swagger_mcp_wrapper.rb`)
-Automatically generates MCP tools from Swagger/OpenAPI specifications.
+**Инструменты:**
+- `get_current_time` - Возвращает текущее время
+- `calculate` - Выполняет математические вычисления
 
-**Usage:**
+### 2. Simple Fast MCP Server (`simple_fast_mcp.rb`)
+Упрощенная версия MCP сервера с использованием `fast_mcp` gem.
+
+**Установка:**
+```bash
+gem install fast_mcp
+```
+
+**Инструменты:**
+- `get_current_time` - Возвращает текущее время
+- `calculate` - Выполняет математические вычисления
+
+### 3. System Monitor MCP (`system_monitor_mcp.rb`)
+Мониторинг системных ресурсов и производительности с использованием `fast_mcp` gem.
+
+**Установка:**
+```bash
+gem install fast_mcp
+```
+
+**Инструменты:**
+- `check_disk_space` - Проверяет доступное место на диске
+- `check_memory` - Проверяет использование памяти
+- `check_cpu` - Проверяет загрузку CPU
+- `system_info` - Показывает информацию о системе
+
+### 4. Git MCP Server (`git_mcp.rb`)
+Операции с Git репозиториями с использованием `fast_mcp` gem.
+
+**Установка:**
+```bash
+gem install fast_mcp git
+```
+
+**Инструменты:**
+- `git_status` - Показывает статус git репозитория
+- `git_log` - Показывает историю коммитов
+- `git_branches` - Список всех веток git
+
+### 5. Task Manager MCP (`task_manager_mcp.rb`)
+Управление задачами с уровнями приоритета и отслеживанием статуса с использованием `fast_mcp` gem.
+
+**Установка:**
+```bash
+gem install fast_mcp json fileutils
+```
+
+**Инструменты:**
+- `list_tasks` - Показывает все задачи
+- `add_task` - Добавляет новую задачу
+- `complete_task` - Отмечает задачу как выполненную
+- `delete_task` - Удаляет задачу
+- `task_stats` - Показывает статистику задач
+
+### 6. Swagger MCP Wrapper (`swagger_mcp_wrapper.rb`)
+Автоматически генерирует MCP инструменты из спецификаций Swagger/OpenAPI.
+
+**Установка:**
+```bash
+gem install json net-http uri yaml
+```
+
+**Использование:**
 ```bash
 ruby swagger_mcp_wrapper.rb <swagger_path> <api_base_url>
 ```
 
-### 3. System Monitor MCP (`system_monitor_mcp.rb`)
-Monitors system resources and performance.
 
-**Tools:**
-- `check_disk_space` - Checks available disk space
-- `check_memory` - Checks memory usage
-- `check_cpu` - Checks CPU load
-- `list_processes` - Shows top processes by resource usage
-- `system_info` - Shows system information
-- `network_connections` - Shows active network connections
+## Использование
 
-### 4. System Monitor MCP (Working Fast-MCP version) (`system_monitor_working_mcp.rb`)
-Working system monitoring using the `fast_mcp` gem:
-- `check_disk_space` - Checks available disk space
-- `check_memory` - Checks memory usage
-- `check_cpu` - Checks CPU load
-- `system_info` - Shows system information
-
-### 5. Git MCP Server (Working Fast-MCP version) (`git_working_mcp.rb`)
-Working Git operations using the `fast_mcp` gem:
-- `git_status` - Shows git repository status
-- `git_log` - Shows git commit history
-- `git_branches` - Lists all git branches
-
-### 6. Task Manager MCP (Fast-MCP version) (`task_manager_fast_mcp.rb`)
-Manages tasks with priority levels and status tracking using `fast_mcp` gem.
-
-**Tools:**
-- `list_tasks` - Shows all tasks
-- `add_task` - Adds a new task
-- `complete_task` - Marks task as completed
-- `delete_task` - Deletes a task
-- `task_stats` - Shows task statistics
-
-### 7. Swagger MCP Wrapper (Fast-MCP version) (`swagger_fast_mcp.rb`)
-Automatically generates MCP tools from Swagger/OpenAPI specifications using `fast_mcp` gem.
-
-**Tools:**
-- `swagger_api` - Calls API endpoint from Swagger specification
-- `load_swagger` - Loads and parses Swagger/OpenAPI specification
-- `generate_api_tools` - Generates MCP tools from Swagger specification
-
-
-## Installation
-
-1. Install Ruby dependencies:
-```bash
-bundle install
-```
-
-2. Make scripts executable:
-```bash
-chmod +x *.rb
-```
-
-## Usage
-
-### Running individual servers
+### Запуск отдельных серверов
 
 ```bash
-# Simple MCP Server
+# Simple MCP Server (базовая версия)
 ruby simple_mcp_server.rb
 
+# Simple Fast MCP Server
+ruby simple_fast_mcp.rb
+
 # System Monitor MCP
-ruby system_monitor_working_mcp.rb
+ruby system_monitor_mcp.rb
 
-# Task Manager MCP (Fast-MCP version)
-ruby task_manager_fast_mcp.rb
+# Git MCP Server
+ruby git_mcp.rb
 
-# Swagger MCP Wrapper (Fast-MCP version)
-ruby swagger_fast_mcp.rb
-
-# Original versions (for reference)
+# Task Manager MCP
 ruby task_manager_mcp.rb
+
+# Swagger MCP Wrapper
 ruby swagger_mcp_wrapper.rb ./swagger.json http://localhost:3000
 ```
 
-### Integration with MCP clients
+### Интеграция с MCP клиентами
 
-These servers can be integrated with MCP-compatible clients by configuring them in your MCP client configuration file.
+Эти серверы могут быть интегрированы с MCP-совместимыми клиентами путем их настройки в файле конфигурации MCP клиента.
 
-Example configuration for Cursor:
+Пример конфигурации для Cursor:
 ```json
 {
   "mcpServers": {
+    "simple-fast": {
+      "command": "ruby",
+      "args": ["/path/to/simple_fast_mcp.rb"]
+    },
     "system-monitor": {
       "command": "ruby",
-      "args": ["/path/to/system_monitor_working_mcp.rb"]
+      "args": ["/path/to/system_monitor_mcp.rb"]
     },
     "git-ops": {
       "command": "ruby",
-      "args": ["/path/to/git_working_mcp.rb"]
+      "args": ["/path/to/git_mcp.rb"]
     },
     "task-manager": {
       "command": "ruby",
-      "args": ["/path/to/task_manager_fast_mcp.rb"]
+      "args": ["/path/to/task_manager_mcp.rb"]
     },
     "swagger-api": {
       "command": "ruby",
-      "args": ["/path/to/swagger_fast_mcp.rb"]
+      "args": ["/path/to/swagger_mcp_wrapper.rb", "./swagger.json", "http://localhost:3000"]
     }
   }
 }
 ```
 
-## Dependencies
+## Зависимости
 
 - Ruby 2.7+
-- `fast_mcp` gem (for fast-mcp based servers)
-- `git` gem (for Git operations)
-- Standard Ruby libraries (json, yaml, net/http, fileutils)
+- `fast_mcp` gem (для серверов на основе fast_mcp)
+- `git` gem (для операций с Git)
+- Стандартные библиотеки Ruby (json, yaml, net/http, fileutils)
 
-## Features
+## Разработка
 
-- **English language support** - All user-facing messages are in English
-- **Cross-platform compatibility** - Works on macOS and Linux
-- **Error handling** - Comprehensive error handling with user-friendly messages
-- **Extensible** - Easy to add new tools and functionality
-- **MCP compliant** - Follows Model Context Protocol specifications
+Для добавления новых инструментов к существующим серверам:
 
-## Development
+1. Добавьте определение инструмента в соответствующий класс
+2. Реализуйте соответствующий метод
+3. Добавьте соответствующую обработку ошибок
+4. Протестируйте с MCP клиентом
 
-To add new tools to existing servers:
-
-1. Add tool definition in `setup_tools` method
-2. Implement the corresponding method
-3. Add appropriate error handling
-4. Test with MCP client
-
-## License
+## Лицензия
 
 MIT License
 
